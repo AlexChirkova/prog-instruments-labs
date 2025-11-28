@@ -3,8 +3,7 @@ from prettytable import PrettyTable
 import numpy as np
 
 #№1
-def solve_system():
-    n = 7
+def solve_random_system(n, min_x = 1, max_x = 10, min_y = 1, max_y = 20):
     A = np.zeros((n, n))
 
     np.random.seed(42)
@@ -12,12 +11,12 @@ def solve_system():
         for j in range(i + 1):
             if i == j: A[i, j] = 1
             else:
-                A[i, j] = np.random.randint(1, 10)
+                A[i, j] = np.random.randint(min_x, max_x)
 
     print("Нижняя унитреугольная матрица A:")
     print(A)
 
-    B = np.random.randint(1, 20, size=n)
+    B = np.random.randint(min_y, max_y, size=n)
     print(f"\nВектор B: {B}")
 
     X = np.zeros(n)
@@ -33,29 +32,22 @@ def solve_system():
 
 
 #№2
-def LU_decomposition():
-    A = np.array([
-        [3.8, 14.2, 6.3, -15.5],
-        [8.3, -6.6, 5.8, 12.2],
-        [6.4, -8.5, -4.3, 8.8],
-        [17.1, -8.3, 14.4, -7.2]
-    ], dtype=float)
-
-    B = np.array([2.8, -4.7, 7.7, 13.5], dtype=float)
+def LU_decomposition(A, B):
+    n = len(A)
 
     print("Матрица A:")
     print(A)
     print(f"\nВектор B: {B}")
 
-    L = np.zeros((4, 4))
-    U = np.zeros((4, 4))
+    L = np.zeros((n, n))
+    U = np.zeros((n, n))
 
-    for i in range(4):
-        for j in range(i, 4):
+    for i in range(n):
+        for j in range(i, n):
             U[i, j] = A[i, j] - np.dot(L[i, :i], U[:i, j])
 
         L[i, i] = 1.0
-        for j in range(i + 1, 4):
+        for j in range(i + 1, n):
             L[j, i] = (A[j, i] - np.dot(L[j, :i], U[:i, i])) / U[i, i]
 
     print("Матрица L:")
@@ -65,12 +57,12 @@ def LU_decomposition():
 
     #LUx=b
     #Ly=b
-    Y = np.zeros(4)
-    for i in range(4):
+    Y = np.zeros(n)
+    for i in range(n):
         Y[i] = B[i] - np.dot(L[i, :i], Y[:i])
     #Ux=y
-    X = np.zeros(4)
-    for i in range(4 - 1, -1, -1):
+    X = np.zeros(n)
+    for i in range(n - 1, -1, -1):
         X[i] = (Y[i] - np.dot(U[i, i + 1:], X[i + 1:])) / U[i, i]
 
     print(f"\nРешение системы AX = B:")
@@ -79,17 +71,9 @@ def LU_decomposition():
     print(f"\nПроверка: A @ X = {A @ X}")
     print(f"Должно быть равно B = {B}")
 
+
 #№3
-def QR_decomposition():
-    A = np.array([
-        [3.8, 14.2, 6.3, -15.5],
-        [8.3, -6.6, 5.8, 12.2],
-        [6.4, -8.5, -4.3, 8.8],
-        [17.1, -8.3, 14.4, -7.2]
-    ], dtype=float)
-
-    B = np.array([2.8, -4.7, 7.7, 13.5], dtype=float)
-
+def QR_decomposition(A, B):
     print("Матрица A:")
     print(A)
     print(f"\nВектор B: {B}")
@@ -161,6 +145,7 @@ def check_diagonal_dominance(A):
             return False
     return True
 
+
 def rearrange_for_dominance(A, B):
     n = len(A)
     A_new = A.copy()
@@ -187,18 +172,11 @@ def rearrange_for_dominance(A, B):
 
     return A_new, B_new, check_diagonal_dominance(A_new)
 
-def method_of_simple_iterations():
-    A = np.array([
-            [2.7, 1.8, 1.1],
-            [3.3, 2.1, 2.8],
-            [4.1, 3.7, 4.8],
 
-        ])
-    B = np.array([3.2, 0.8, 5.7])
-
+def method_of_simple_iterations(A, B, epsilon = 0.001):
     print("A = ", A)
     print("B = ", B)
-    epsilon = 0.001
+
     table = PrettyTable()
     table.field_names = ["k", "x_1", "x_2", "x_3", "norma(x_k - x_k-1)"]
     table.add_row([0, 0, 0, 0, ""])
@@ -230,12 +208,13 @@ def method_of_simple_iterations():
     else:
         print("\nМатрица имеет диагональное преобладание.")
 
-    B_s = np.zeros((3, 3))
-    C = np.zeros(3)
+    n = len(A)
+    B_s = np.zeros((n, n))
+    C = np.zeros(n)
 
-    for i in range(3):
+    for i in range(n):
         C[i] = B[i] / A[i, i]
-        for j in range(3):
+        for j in range(n):
             if i != j:
                 B_s[i, j] = -A[i, j] / A[i, i]
 
@@ -244,16 +223,16 @@ def method_of_simple_iterations():
     print("\nВектор C:")
     print(C)
 
-    X = np.zeros(3)
+    X = np.zeros(n)
 
     k = 0
     while True:
-        X_new = np.zeros(3)
+        X_new = np.zeros(n)
 
         try:
-            for i in range(3):
+            for i in range(n):
                 sum_term = 0
-                for j in range(3):
+                for j in range(n):
                     if i != j:
                         sum_term += B_s[i, j] * X[j]
                 X_new[i] = sum_term + C[i]
@@ -286,16 +265,10 @@ def method_of_simple_iterations():
 
 
 #№5
-def least_squares_method():
-    A = np.array([
-        [4.4, -2.5, 19.2, -10.8],
-        [5.5, -9.3, -14.2, 13.2],
-        [7.1, -11.5, 5.3, -6.7],
-        [14.2, 23.4, -8.8, 5.3],
-        [8.2, -3.2, 14.2, 14.8]
-    ])
-
-    B = np.array([4.3, 6.8, -1.8, 7.2, -8.4])
+def least_squares_method(A, B):
+    print("Матрица A:")
+    print(A)
+    print(f"\nВектор B: {B}")
 
     # Находим псевдорешение методом наименьших квадратов
     X, residuals, rank, s = np.linalg.lstsq(A, B, rcond=None)
@@ -311,16 +284,44 @@ def least_squares_method():
 
 if __name__ == "__main__":
     print("Task 1")
-    solve_system()
+    solve_random_system(7)
+
+
+    A2 = np.array([
+        [3.8, 14.2, 6.3, -15.5],
+        [8.3, -6.6, 5.8, 12.2],
+        [6.4, -8.5, -4.3, 8.8],
+        [17.1, -8.3, 14.4, -7.2]
+    ], dtype=float)
+
+    B2 = np.array([2.8, -4.7, 7.7, 13.5], dtype=float)
 
     print("\nTask 2")
-    LU_decomposition()
+    LU_decomposition(A2, B2)
 
     print("\nTask 3")
-    QR_decomposition()
+    QR_decomposition(A2, B2)
+
+
+    A4 = np.array([
+        [5.3, 2.1, 2.8],
+        [4.1, 6.7, 4.8],
+        [2.7, 1.8, 8.1]
+    ])
+    B4 = np.array([0.8, 5.7, 3.2])
 
     print("\nTask 4")
-    method_of_simple_iterations()
+    method_of_simple_iterations(A4, B4)
+
+    A5 = np.array([
+        [4.4, -2.5, 19.2, -10.8],
+        [5.5, -9.3, -14.2, 13.2],
+        [7.1, -11.5, 5.3, -6.7],
+        [14.2, 23.4, -8.8, 5.3],
+        [8.2, -3.2, 14.2, 14.8]
+    ])
+
+    B5 = np.array([4.3, 6.8, -1.8, 7.2, -8.4])
 
     print("\nTask 5")
-    least_squares_method()
+    least_squares_method(A5, B5)
