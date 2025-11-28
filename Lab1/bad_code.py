@@ -10,7 +10,8 @@ def solve_random_system(n, min_x=1, max_x=10, min_y=1, max_y=20):
     np.random.seed(42)
     for i in range(n):
         for j in range(i + 1):
-            if i == j: A[i, j] = 1
+            if i == j:
+                A[i, j] = 1
             else:
                 A[i, j] = np.random.randint(min_x, max_x)
 
