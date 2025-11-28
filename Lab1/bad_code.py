@@ -1,8 +1,6 @@
 #var 4
 from prettytable import PrettyTable
 import numpy as np
-import matplotlib.pyplot as plt
-import math
 
 #№1
 def solve_system():
@@ -135,7 +133,6 @@ def QR_decomposition():
     """
     qt_b = Q.T @ B
 
-    #n = R.shape[1]
     X = np.zeros(n)
 
     for i in range(n - 1, -1, -1):
@@ -248,8 +245,6 @@ def method_of_simple_iterations():
     print(C)
 
     X = np.zeros(3)
-
-    previous_norm = float('inf')
 
     k = 0
     while True:
