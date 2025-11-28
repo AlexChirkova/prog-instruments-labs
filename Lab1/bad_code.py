@@ -23,7 +23,7 @@ def solve_random_system(n, min_x=1, max_x=10, min_y=1, max_y=20):
     X = np.zeros(n)
     X[0] = B[0]
     for i in range(1, n):
-        X[i] = B[i] - np.dot(A[i, :i], X[ :i])
+        X[i] = B[i] - np.dot(A[i, :i], X[:i])
 
     print(f"\nРешение системы AX = B:")
     print(f"X = {X}")
