@@ -2,7 +2,24 @@ from prettytable import PrettyTable
 import numpy as np
 
 
-def solve_random_system(n, min_x=1, max_x=10, min_y=1, max_y=20):
+def solve_random_system(
+        n: int,
+        min_a: int = 1,
+        max_a: int = 10,
+        min_b: int = 1,
+        max_b: int = 20
+        ) -> None:
+    """
+    Creates an arbitrary lower unitriangular matrix A of order n,
+    vector B is arbitrary.
+    It solves the system Ax = B.
+    :param n: Matrix dimension n x n
+    :param min_a: The minimum value of the coefficients in matrix A.
+    :param max_a: The maximum value of the coefficients in matrix A.
+    :param min_b: The minimum value of the coefficients in vector B.
+    :param max_b: The maximum value of the coefficients in vector B.
+    :return: None.
+    """
     A = np.zeros((n, n))
 
     np.random.seed(42)
@@ -11,12 +28,12 @@ def solve_random_system(n, min_x=1, max_x=10, min_y=1, max_y=20):
             if i == j:
                 A[i, j] = 1
             else:
-                A[i, j] = np.random.randint(min_x, max_x)
+                A[i, j] = np.random.randint(min_a, max_a)
 
     print("Нижняя унитреугольная матрица A:")
     print(A)
 
-    B = np.random.randint(min_y, max_y, size=n)
+    B = np.random.randint(min_b, max_b, size=n)
     print(f"\nВектор B: {B}")
 
     X = np.zeros(n)
@@ -31,7 +48,14 @@ def solve_random_system(n, min_x=1, max_x=10, min_y=1, max_y=20):
     print(f"Должно быть равно B = {B}")
 
 
-def LU_decomposition(A, B):
+def LU_decomposition(A: np.array, B: np.array) -> None:
+    """
+    Solves a system of equations Ax = B using LU decomposition.
+    It leads the system from the type Ax=B to the type LUx=B.
+    :param A: The initial matrix of coefficients.
+    :param B: The vector of values of the equations of the system.
+    :return: None.
+    """
     n = len(A)
 
     print("Матрица A:")
@@ -71,7 +95,20 @@ def LU_decomposition(A, B):
     print(f"Должно быть равно B = {B}")
 
 
-def QR_decomposition(A, B):
+def QR_decomposition(A: np.array, B: np.array) -> None:
+    """
+    Solves a system of equations Ax = B
+    using the QR decomposition of the matrix A.
+    It leads the system from the type Ax=B to the type QRx=B.
+    Ax=b => QRx=B => Rx = (Q^T)B
+    Finds the QR decomposition using the Householder method.
+    Verifies the resulting decomposition
+    by direct substitution into the original system,
+    as well as by the np.solve method.
+    :param A: The initial matrix of coefficients.
+    :param B: The vector of values of the equations of the system.
+    :return: None.
+    """
     print("Матрица A:")
     print(A)
     print(f"\nВектор B: {B}")
@@ -111,10 +148,6 @@ def QR_decomposition(A, B):
 
     print(f"Норма ||Q^T * Q - I|| = {np.linalg.norm(Q.T @ Q - np.eye(4)):.2e}")
 
-    """
-    Решение системы AX = B через QR-разложение
-    Ax=b => QRx=b => Rx = (Q^T)b
-    """
     qt_b = Q.T @ B
 
     X = np.zeros(n)
@@ -135,7 +168,13 @@ def QR_decomposition(A, B):
     print(f"X = {np.linalg.solve(A, B)}")
 
 
-def check_diagonal_dominance(A):
+def check_diagonal_dominance(A: np.array) -> bool:
+    """
+    Verifies the fulfillment of a sufficient convergence condition
+    (diagonal predominance) for the method of simple iterations.
+    :param A: The matrix of coefficients.
+    :return: Is there a diagonal predominance.
+    """
     n = len(A)
     for i in range(n):
         diagonal = abs(A[i, i])
@@ -145,7 +184,19 @@ def check_diagonal_dominance(A):
     return True
 
 
-def rearrange_for_dominance(A, B):
+def rearrange_for_dominance(
+        A: np.array,
+        B: np.array
+        ) -> tuple[np.array, np.array, bool]:
+    """
+    Transforms the matrix of coefficients
+    and the vector of values so
+    that there is a diagonal predominance.
+    :param A: The initial matrix of coefficients
+    :param B: The vector of values of the equations of the system
+    :return: The transformed matrix and vector.
+             Is there a diagonal predominance in the new matrix.
+    """
     n = len(A)
     A_new = A.copy()
     B_new = B.copy()
@@ -172,7 +223,25 @@ def rearrange_for_dominance(A, B):
     return A_new, B_new, check_diagonal_dominance(A_new)
 
 
-def method_of_simple_iterations(A, B, epsilon=0.001):
+def method_of_simple_iterations(
+        A: np.array,
+        B: np.array,
+        epsilon: float = 0.001
+        ) -> None:
+    """
+    Solves the system of equations Ax = B
+    using simple iterations with a given accuracy.
+    It leads the system from the type Ax=B to the type X^(k+1) = B_s*X^k + C
+    Verifies that a sufficient convergence condition is met.
+    Forms the iterations in the form of a table.
+    Checks the received solution.
+    :param A: The initial matrix of coefficients.
+    :param B: The vector of values of the equations of the system.
+    :param epsilon: The precision with which it is necessary
+           to find a solution to the system.
+    :return: None.
+    """
+
     print("A = ", A)
     print("B = ", B)
 
@@ -280,7 +349,14 @@ def method_of_simple_iterations(A, B, epsilon=0.001):
     print("Решая через np.solve: ", np.linalg.solve(A, B))
 
 
-def least_squares_method(A, B):
+def least_squares_method(A: np.array, B: np.array) -> None:
+    """
+    Finds a pseudo-solution of a system of equations Ax = B
+    by the least squares method.
+    :param A: The initial matrix of coefficients.
+    :param B: The vector of values of the equations of the system.
+    :return: None
+    """
     print("Матрица A:")
     print(A)
     print(f"\nВектор B: {B}")
