@@ -256,7 +256,7 @@ def method_of_simple_iterations(A, B, epsilon=0.001):
                 print(f"\nПредупреждение: Метод может расходиться. Норма разности: {norm_diff:.6f}")
                 break
 
-        except(FloatingPointError, OverflowError) as e:
+        except (FloatingPointError, OverflowError) as e:
             print(f"\nОшибка вычислений на итерации {k + 1}: {e}")
             print("Метод расходится.")
             break
