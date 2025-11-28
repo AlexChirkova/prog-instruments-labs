@@ -2,8 +2,9 @@
 from prettytable import PrettyTable
 import numpy as np
 
+
 #№1
-def solve_random_system(n, min_x = 1, max_x = 10, min_y = 1, max_y = 20):
+def solve_random_system(n, min_x=1, max_x=10, min_y=1, max_y=20):
     A = np.zeros((n, n))
 
     np.random.seed(42)
@@ -173,7 +174,7 @@ def rearrange_for_dominance(A, B):
     return A_new, B_new, check_diagonal_dominance(A_new)
 
 
-def method_of_simple_iterations(A, B, epsilon = 0.001):
+def method_of_simple_iterations(A, B, epsilon=0.001):
     print("A = ", A)
     print("B = ", B)
 
@@ -286,7 +287,6 @@ if __name__ == "__main__":
     print("Task 1")
     solve_random_system(7)
 
-
     A2 = np.array([
         [3.8, 14.2, 6.3, -15.5],
         [8.3, -6.6, 5.8, 12.2],
@@ -301,7 +301,6 @@ if __name__ == "__main__":
 
     print("\nTask 3")
     QR_decomposition(A2, B2)
-
 
     A4 = np.array([
         [5.3, 2.1, 2.8],
