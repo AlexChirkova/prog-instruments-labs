@@ -313,3 +313,19 @@ def least_squares_method():
 
     print("\nНорма невязки:", np.linalg.norm(A @ X - B))
 
+
+if __name__ == "__main__":
+    print("Task 1")
+    solve_system()
+
+    print("\nTask 2")
+    LU_decomposition()
+
+    print("\nTask 3")
+    QR_decomposition()
+
+    print("\nTask 4")
+    method_of_simple_iterations()
+
+    print("\nTask 5")
+    least_squares_method()
