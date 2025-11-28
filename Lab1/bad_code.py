@@ -109,7 +109,9 @@ def QR_decomposition(A, B):
     print(R)
 
     print(f"\nПроверка QR-разложения:")
-    print("Норма разности ||A - Q*R|| = {:.2e}".format(np.linalg.norm(A - Q @ R)))
+    print(
+        "Норма разности ||A - Q*R|| = {:.2e}".format(np.linalg.norm(A - Q @ R))
+    )
 
     print(f"Норма ||Q^T * Q - I|| = {np.linalg.norm(Q.T @ Q - np.eye(4)):.2e}")
 
@@ -190,11 +192,18 @@ def method_of_simple_iterations(A, B, epsilon=0.001):
 
         A, B, success = rearrange_for_dominance(A, B)
         if success:
-            print("Удалось достичь диагонального преобладания перестановкой строк.")
+            print(
+                "Удалось достичь диагонального преобладания перестановкой "
+                "строк."
+            )
         else:
-            print("Не удалось достичь диагонального преобладания перестановкой строк.")
+            print(
+                "Не удалось достичь диагонального преобладания перестановкой "
+                "строк."
+            )
             for i in range(3):
-                if abs(A[i, i]) <= sum(abs(A[i, j]) for j in range(3) if j != i):
+                if abs(A[i, i]) <= sum(abs(A[i, j])
+                                       for j in range(3) if j != i):
                     for j in range(3):
                         if i != j and A[j, i] != 0:
                             factor = A[j, i] / A[i, i] if A[i, i] != 0 else 1
@@ -203,9 +212,14 @@ def method_of_simple_iterations(A, B, epsilon=0.001):
                             break
 
             if check_diagonal_dominance(A):
-                print("Удалось достичь диагонального преобладания преобразованиями.")
+                print(""
+                      "Удалось достичь диагонального преобладания "
+                      "преобразованиями."
+                      )
             else:
-                print("Не удалось достичь строгого диагонального преобладания.")
+                print(
+                    "Не удалось достичь строгого диагонального преобладания."
+                )
                 print("Сходимость метода не гарантирована.")
     else:
         print("\nМатрица имеет диагональное преобладание.")
@@ -253,8 +267,13 @@ def method_of_simple_iterations(A, B, epsilon=0.001):
             previous_norm = norm_diff
             k += 1
 
-            if norm_diff > 1e10 or (previous_norm != float('inf') and norm_diff > 10 * previous_norm):
-                print(f"\nПредупреждение: Метод может расходиться. Норма разности: {norm_diff:.6f}")
+            if (norm_diff > 1e10
+                    or (previous_norm != float('inf')
+                        and norm_diff > 10 * previous_norm)):
+                print(f"\nПредупреждение: "
+                      f"Метод может расходиться. "
+                      f"Норма разности: {norm_diff:.6f}"
+                      )
                 break
 
         except (FloatingPointError, OverflowError) as e:
