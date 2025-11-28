@@ -1,9 +1,9 @@
-#var 4
+# var 4
 from prettytable import PrettyTable
 import numpy as np
 
 
-#№1
+# №1
 def solve_random_system(n, min_x=1, max_x=10, min_y=1, max_y=20):
     A = np.zeros((n, n))
 
@@ -33,7 +33,7 @@ def solve_random_system(n, min_x=1, max_x=10, min_y=1, max_y=20):
     print(f"Должно быть равно B = {B}")
 
 
-#№2
+# №2
 def LU_decomposition(A, B):
     n = len(A)
 
@@ -57,12 +57,12 @@ def LU_decomposition(A, B):
     print("Матрица U:")
     print(U)
 
-    #LUx=b
-    #Ly=b
+    # LUx=b
+    # Ly=b
     Y = np.zeros(n)
     for i in range(n):
         Y[i] = B[i] - np.dot(L[i, :i], Y[:i])
-    #Ux=y
+    # Ux=y
     X = np.zeros(n)
     for i in range(n - 1, -1, -1):
         X[i] = (Y[i] - np.dot(U[i, i + 1:], X[i + 1:])) / U[i, i]
@@ -74,7 +74,7 @@ def LU_decomposition(A, B):
     print(f"Должно быть равно B = {B}")
 
 
-#№3
+# №3
 def QR_decomposition(A, B):
     print("Матрица A:")
     print(A)
@@ -139,7 +139,7 @@ def QR_decomposition(A, B):
     print(f"X = {np.linalg.solve(A, B)}")
 
 
-#№4
+# №4
 def check_diagonal_dominance(A):
     n = len(A)
     for i in range(n):
@@ -285,7 +285,7 @@ def method_of_simple_iterations(A, B, epsilon=0.001):
     print("Решая через np.solve: ", np.linalg.solve(A, B))
 
 
-#№5
+# №5
 def least_squares_method(A, B):
     print("Матрица A:")
     print(A)
