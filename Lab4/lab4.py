@@ -2,6 +2,27 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.stats as stats
 
+
+def statistic(sample: np.array) -> tuple:
+    stat = list()
+    stat.append(np.mean(sample))
+    stat.append(np.median(sample))
+    stat.append(np.std(sample))
+    stat.append(np.var(sample_means, ddof=1))
+    stat.append(stats.skew(sample))
+    stat.append(stats.kurtosis(sample))
+    return tuple(stat)
+
+def print_statistic(sample: np.array) -> None:
+    stat = statistic(sample)
+    print("Основные выборочные статистические характеристики:")
+    print(f"  Среднее: {stat[0]:.4f}")
+    print(f"  Медиана: {stat[1]:.4f}")
+    print(f"  Стандартное отклонение: {stat[2]:.4f}")
+    print(f"  Исправленная дисперсия: {stat[3]:.4f}")
+    print(f"  Коэффициент асимметрии: {stat[4]:.4f}")
+    print(f"  Коэффициент эксцесса: {stat[5]:.4f}")
+
 # 5й вариант лабы по статистике
 
 
@@ -50,20 +71,9 @@ plt.legend()
 plt.grid(True, alpha=0.3)
 plt.show()
 
-mean_of_means = np.mean(sample_means)
-median_of_means = np.median(sample_means)
-variance_of_means = np.var(sample_means, ddof=1)  # S^2
-
-print(f"\nВыборочное среднее: {mean_of_means:.4f}")
-print(f"Выборочная медиана: {median_of_means:.4f}")
-print(f"Выборочная дисперсия: {variance_of_means:.4f}")
+print_statistic(sample_means)
 print(f"Теоретическая дисперсия Х-: {(sigma ** 2) / size_of_simple:.4f}")
 
-skewness = stats.skew(sample_means)
-kurtosis = stats.kurtosis(sample_means)
-
-print(f"\nКоэффициент асимметрии: {skewness:.4f}, должно быть 0")
-print(f"Коэффициент эксцесса: {kurtosis:.4f}, должно быть 0")
 
 # Подсчет случаев, когда Х- > a
 count_above_a = np.sum(sample_means > a)
@@ -78,13 +88,8 @@ print(samples[1])
 print()
 print(sample_vars)
 
-mean_of_vars = np.mean(sample_vars)
-median_of_vars = np.median(sample_vars)
-variance_of_vars = np.var(sample_vars, ddof=1)  # S^2
 
-print(f"\nВыборочное среднее: {mean_of_vars:.4f}")
-print(f"Выборочная медиана: {median_of_vars:.4f}")
-print(f"Выборочная дисперсия: {variance_of_vars:.4f}")
+print_statistic(sample_vars)
 print(f"Теоретическкая дисперсия: {2 * sigma ** 4 * (size_of_simple - 1) / size_of_simple ** 2}")
 
 # Эмпирическая функция распределения
@@ -117,18 +122,9 @@ print(f"Доля случаев: {proportion_above_sigma:.4f}")
 
 sample_y = size_of_simple * sample_vars / sigma ** 2
 
-mean_Y = np.mean(sample_y)
-median_Y = np.median(sample_y)
-variance_Y = np.var(sample_y, ddof=1)
-skewness_Y = stats.skew(sample_y)
-kurtosis_Y = stats.kurtosis(sample_y)
 
 print(f"\nХарактеристики случайной величины Y:")
-print(f"   - Выборочное среднее: {mean_Y:.4f}")
-print(f"   - Выборочная медиана: {median_Y:.4f}")
-print(f"   - Выборочная дисперсия: {variance_Y:.4f}")
-print(f"   - Коэффициент асимметрии: {skewness_Y:.4f}")
-print(f"   - Коэффициент эксцесса: {kurtosis_Y:.4f}")
+print_statistic(sample_y)
 
 df = size_of_simple - 1  # degrees of freedom
 
