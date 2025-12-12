@@ -4,8 +4,8 @@ from graphs import *
 from normal import *
 from statistic import *
 
-def main(size_of_samples, count_of_samples, a, sigma, repetitions):
 
+def main(size_of_samples, count_of_samples, a, sigma, repetitions):
 
     samples = create_some_normal_samples(size_of_sample, count_of_samples, a, sigma)
     sample_means = np.mean(samples, axis=1)
@@ -51,7 +51,6 @@ def main(size_of_samples, count_of_samples, a, sigma, repetitions):
 
     show_emp_and_theor_chi2_distrib_func(sample_y)
     show_emp_and_theor_norm_distrib_density(sample_y, a, sigma)
-
 
     sample_mean_vars = create_sample_norm_vars(
         repetitions, size_of_sample, count_of_samples, a, sigma

@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.stats as stats
 
+
 def boxplot_mean_var(sample: np.array) -> None:
     plt.figure(figsize=(10, 6))
 
@@ -58,6 +59,7 @@ def hist_mean_var(sample: np.array, sigma: float) -> None:
     plt.legend()
     plt.grid(True, alpha=0.3)
     plt.show()
+
 
 def show_emp_and_theor_norm_distrib_func(
     sample: np.array, a: float, sigma: float
@@ -130,6 +132,7 @@ def show_emp_distrib_density(sample) -> None:
     plt.legend()
     plt.grid(True, alpha=0.3)
     plt.show()
+
 
 def show_emp_and_theor_chi2_distrib_density(sample: np.array, df: int = 0) -> None:
     if df == 0:
