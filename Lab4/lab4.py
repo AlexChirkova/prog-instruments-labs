@@ -23,11 +23,11 @@ def print_statistic(sample: np.array) -> None:
     print(f"  Коэффициент асимметрии: {stat[4]:.4f}")
     print(f"  Коэффициент эксцесса: {stat[5]:.4f}")
 
-# создание масива случайных значений
+
 def create_some_normal_samples(size: int, count: int, a: float, sigma: float) -> np.array:
     return np.random.normal(a, sigma, (count, size))
 
-# Эмпирическая и теоретиеская функции распределения
+
 def show_emp_and_theor_norm_distrib_func(sample: np.array, a: float, sigma: float) -> None:
     sorted_sample = np.sort(sample)
 
@@ -48,7 +48,6 @@ def show_emp_and_theor_norm_distrib_func(sample: np.array, a: float, sigma: floa
     plt.show()
 
 
-# Теоретическая плотность распределения
 def show_emp_and_theor_norm_distrib_density(sample: np.array, a: float, sigma: float) -> None:
     plt.figure(figsize=(10, 6))
 
@@ -69,7 +68,7 @@ def show_emp_and_theor_norm_distrib_density(sample: np.array, a: float, sigma: f
     plt.grid(True, alpha=0.3)
     plt.show()
 
-# Эмпирическая функция распределения
+
 def show_emp_distrib_func(sample: np.array) -> None:
     plt.figure(figsize=(10, 6))
     plt.hist(sample, bins='scott', density=True, cumulative=True, label='F^(x)')
@@ -82,7 +81,7 @@ def show_emp_distrib_func(sample: np.array) -> None:
     plt.grid(True, alpha=0.3)
     plt.show()
 
-# Гистограмма
+
 def show_emp_distrib_density(sample) -> None:
     plt.figure(figsize=(10, 6))
     _, bins, _ = plt.hist(sample, bins='scott', density=True,
@@ -100,7 +99,7 @@ def show_emp_distrib_density(sample) -> None:
 
 def theor_statistic_chi2(sample: np.array, df: int = 0) -> tuple:
     if df == 0:
-        df = len(sample) - 1  # degrees of freedom
+        df = len(sample) - 1
 
     theor_stat = list()
     theor_stat.append(df)
@@ -167,7 +166,7 @@ def show_emp_and_theor_chi2_distrib_func(sample: np.array, df: int = 0) -> None:
     plt.grid(True, alpha=0.3)
     plt.show()
 
-#CHAST 2
+
 def create_sample_norm_vars(size: int, length: int, count: int, a: float, sigma: float) -> np.array:
     mean_variances = list()
     for i in range(size):
@@ -243,7 +242,6 @@ def main():
     show_emp_and_theor_norm_distrib_func(sample_means, a, sigma)
     show_emp_and_theor_norm_distrib_density(sample_means, a, sigma)
 
-    # Подсчет случаев, когда среднее Х > a
     count_above_a = np.sum(sample_means > a)
     proportion_above_a = count_above_a / count_of_samples
 
