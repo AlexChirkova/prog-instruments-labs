@@ -3,7 +3,7 @@ from normal import *
 from statistic import *
 
 
-def main(size_of_sample, count_of_samples, a, sigma, repetitions):
+def main(size_of_sample, count_of_samples, a, sigma, repetitions, df):
 
     samples = create_some_normal_samples(size_of_sample, count_of_samples, a, sigma)
     sample_means = np.mean(samples, axis=1)
@@ -45,10 +45,10 @@ def main(size_of_sample, count_of_samples, a, sigma, repetitions):
     print(f"\nХарактеристики случайной величины Y:")
     print_statistic(sample_y)
 
-    print_theor_stat_chi2(sample_vars)
+    print_theor_stat_chi2(sample_vars, df)
 
-    show_emp_and_theor_chi2_distrib_func(sample_y)
-    show_emp_and_theor_norm_distrib_density(sample_y, a, sigma)
+    show_emp_and_theor_chi2_distrib_func(sample_y, df)
+    show_emp_and_theor_chi2_distrib_density(sample_y, df)
 
     sample_mean_vars = create_sample_norm_vars(
         repetitions, size_of_sample, count_of_samples, a, sigma
@@ -62,8 +62,9 @@ def main(size_of_sample, count_of_samples, a, sigma, repetitions):
 
 if __name__ == "__main__":
     size_of_sample = 7
+    df = size_of_sample -1
     count_of_samples = 120
     a = -2
     sigma = 3
     repetitions = 550
-    main(size_of_sample, count_of_samples, a, sigma, repetitions)
+    main(size_of_sample, count_of_samples, a, sigma, repetitions, df)

@@ -24,7 +24,7 @@ def print_statistic(sample: np.array) -> None:
     print(f"  Коэффициент эксцесса: {stat[5]:.4f}")
 
 
-def theor_statistic_chi2(sample: np.array, df: int = 0) -> tuple:
+def theor_statistic_chi2(sample: np.array, df: int) -> tuple:
     if df == 0:
         df = len(sample) - 1
 

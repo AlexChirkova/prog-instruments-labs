@@ -134,10 +134,7 @@ def show_emp_distrib_density(sample) -> None:
     plt.show()
 
 
-def show_emp_and_theor_chi2_distrib_density(sample: np.array, df: int = 0) -> None:
-    if df == 0:
-        df = len(sample) - 1
-
+def show_emp_and_theor_chi2_distrib_density(sample: np.array, df: int) -> None:
     plt.hist(
         sample,
         bins="scott",
@@ -167,10 +164,7 @@ def show_emp_and_theor_chi2_distrib_density(sample: np.array, df: int = 0) -> No
     plt.show()
 
 
-def show_emp_and_theor_chi2_distrib_func(sample: np.array, df: int = 0) -> None:
-    if df == 0:
-        df = len(sample) - 1
-
+def show_emp_and_theor_chi2_distrib_func(sample: np.array, df: int) -> None:
     plt.hist(
         sample,
         bins="scott",
