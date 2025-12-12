@@ -148,7 +148,7 @@ def QR_decomposition(A: np.array, B: np.array) -> None:
 
     print(f"Норма ||Q^T * Q - I|| = {np.linalg.norm(Q.T @ Q - np.eye(4)):.2e}")
 
-    qt_b = Q.T @ B
+    qt_b = Q.T @ B # Solve Rx = Q^T * B
 
     X = np.zeros(n)
 
