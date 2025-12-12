@@ -1,11 +1,9 @@
-import numpy as np
-
 from graphs import *
 from normal import *
 from statistic import *
 
 
-def main(size_of_samples, count_of_samples, a, sigma, repetitions):
+def main(size_of_sample, count_of_samples, a, sigma, repetitions):
 
     samples = create_some_normal_samples(size_of_sample, count_of_samples, a, sigma)
     sample_means = np.mean(samples, axis=1)
