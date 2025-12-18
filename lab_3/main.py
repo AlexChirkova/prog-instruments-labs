@@ -24,9 +24,8 @@ def find_invalid_rows(file_path: str, delimiter: str = ";") -> List[int]:
         rows = csv.DictReader(file, delimiter=delimiter)
 
         for i, row in enumerate(rows):
-            if is_row_valid(row):
-                continue
-            invalid_rows.append(i)
+            if not is_row_valid(row):
+                invalid_rows.append(i)
     return invalid_rows
 
 
@@ -38,7 +37,6 @@ def main() -> None:
     """
     invalid_rows = find_invalid_rows(CSV_PATH)
     checksum = calculate_checksum(invalid_rows)
-    print(checksum)
     serialize_result(VARIANT, checksum)
 
 
