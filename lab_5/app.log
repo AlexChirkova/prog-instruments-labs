@@ -1,0 +1,14 @@
+2026-01-20 00:28:06,979 - root - INFO - Enter in the program
+2026-01-20 00:28:07,088 - perfomance - INFO - Asymmetric keys were generated successfully.
+2026-01-20 00:28:07,088 - perfomance - INFO - Asymmetric keys were wrote in file successfully.
+2026-01-20 00:28:10,787 - perfomance - INFO - Symmetric key was generated successfully.
+2026-01-20 00:28:10,787 - perfomance - INFO - Symmetric key was wrote in file successfully.
+2026-01-20 00:28:10,787 - root - INFO - End of the program
+2026-01-20 00:28:15,331 - root - INFO - Enter in the program
+2026-01-20 00:28:15,415 - perfomance - INFO - Text was encrypted successfully.
+2026-01-20 00:28:15,415 - perfomance - INFO - Encrypted text was wrote to the file successfully.
+2026-01-20 00:28:15,415 - root - INFO - End of the program
+2026-01-20 00:28:22,322 - root - INFO - Enter in the program
+2026-01-20 00:28:22,385 - perfomance - INFO - Text was decrypted successfully.
+2026-01-20 00:28:22,385 - perfomance - INFO - Decrypted text was wrote to the file successfully.
+2026-01-20 00:28:22,385 - root - INFO - End of the program
