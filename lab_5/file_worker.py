@@ -1,6 +1,11 @@
 from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.hazmat.primitives import serialization
 
+import logging
+
+
+logger = logging.getLogger(__name__)
+
 
 class FileWorker:
     @staticmethod
@@ -14,7 +19,7 @@ class FileWorker:
             with open(file_path, "rb") as file:
                 return file.read()
         except Exception as e:
-            print(f"Error: {e}")
+            logger.error(f"Error: {e}")
             return b""
 
     @staticmethod
@@ -29,7 +34,7 @@ class FileWorker:
             with open(file_path, "wb") as file:
                 file.write(data)
         except Exception as e:
-            print(f"Error: {e}")
+            logger.error(f"Error: {e}")
 
     @staticmethod
     def serialize_private_key(private_key: rsa.RSAPrivateKey, file_path: str) -> None:

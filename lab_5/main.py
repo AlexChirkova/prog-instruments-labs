@@ -1,8 +1,21 @@
 import argparse
+import logging
 
 from perfomance import *
 
+
+logging.basicConfig(
+    level=logging.DEBUG,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler('app.log'),
+        logging.StreamHandler()
+    ]
+)
+
+
 if __name__ == "__main__":
+    logging.info("Enter in the program")
     parser = argparse.ArgumentParser()
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("-gen", "--generation", help="Запускает режим генерации ключей")
@@ -19,3 +32,5 @@ if __name__ == "__main__":
 
     else:
         Performance.decrypt_text()
+
+    logging.info("End of the program")
